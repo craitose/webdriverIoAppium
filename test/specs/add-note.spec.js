@@ -10,7 +10,7 @@ describe('Add Notes', () => {
 
    it('add a note, save changes & verify note', async () => {
 
-      await editNoteScreen.addSaveNote("Fav Side Arms", "Colt\nCloc\nDeagle");
+      await editNoteScreen.addSaveNote("Favourite Side Arms", "Colt\nCloc\nDeagle");
 
    });
 
