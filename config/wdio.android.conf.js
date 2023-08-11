@@ -23,7 +23,7 @@ config.specs = [
 // ============
 config.capabilities = [{
     // capabilities for Browser web tests on an Android Emulator
-    'appium:platformName': 'Android',
+    'appium:platformName': 'android',
     'appium:deviceName': 'Pixel 3',
     'appium:platformVersion': '12.0',
     'appium:automationName': 'UiAutomator2',
