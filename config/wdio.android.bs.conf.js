@@ -24,7 +24,7 @@ config.capabilities = [{
     'deviceName': 'Google Pixel 3',
     'platformVersion': '10.0',
     'automationName': 'UiAutomator2',
-    'app': 'AndroidAppV1',
+    'app': 'ColorNoteApp',
     'autoGrantPermissions': true
 }
 
