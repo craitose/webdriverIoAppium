@@ -10,9 +10,9 @@ jobs:
         - uses: actions/setup-node@v4
           with:
             node-version: 18
-            
+            cache: 'npm'
         - name: Install
-          run: npm install
+          run: npm ci
 
         # New Step: Upload APK before running tests
         - name: Upload App to BrowserStack
