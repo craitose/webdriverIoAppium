@@ -6,16 +6,28 @@ jobs:
     steps:
         - name: Checkout
           uses: actions/checkout@v4
+        
         - uses: actions/setup-node@v4
           with:
             node-version: 18
+            
         - name: Install
           run: npm install
+
+        # New Step: Upload APK before running tests
+        - name: Upload App to BrowserStack
+          run: |
+            curl -u "${{ secrets.BROWSERSTACK_USER }}:${{ secrets.BROWSERSTACK_KEY }}" \
+            -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
+            -F "file=@./app/android/ColorNote+Notepad.apk" \
+            -F "custom_id=ColorNoteApp"
+
         - name: Test
           env: 
             BROWSERSTACK_USER: ${{secrets.BROWSERSTACK_USER}}
             BROWSERSTACK_KEY: ${{secrets.BROWSERSTACK_KEY}}
           run: npx wdio config/wdio.android.bs.conf.js --spec test/specs/add-note.spec.js
+          
         - uses: actions/upload-artifact@v4
           if: failure()
           with:
