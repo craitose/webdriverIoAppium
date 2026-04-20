@@ -12,7 +12,7 @@ config.key = process.env.BROWSERSTACK_KEY;
 // Specify Test Files
 // ==================
 config.specs = [
-    'C:\\Users\\Craig\\Desktop\\Appium\\webdriverio-appium-v8\\test\\specs\\add-note.spec.js'
+    './test/specs/add-note.spec.js'
 ],
 
 // ============
@@ -24,7 +24,7 @@ config.capabilities = [{
     'deviceName': 'Google Pixel 3',
     'platformVersion': '10.0',
     'automationName': 'UiAutomator2',
-    'app': 'bs://2d885f8d86beba030c35e12bbcf4c274a9239713',
+    'app': 'AndroidAppV1',
     'autoGrantPermissions': true
 }
 
