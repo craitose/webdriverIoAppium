@@ -23,10 +23,11 @@ config.capabilities = [{
     'platformName': 'Android',
     'appium:automationName': 'UiAutomator2',
     'appium:autoGrantPermissions': true,
+    'appium:app': 'ColorNoteApp',
+    
     'bstack:options':{
      'deviceName': 'Google Pixel 5',
-     'osVersion': '11.0', 
-     'app': 'ColorNoteApp',   
+     'osVersion': '11.0',    
     },   
 
 }
