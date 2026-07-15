@@ -45,4 +45,6 @@ config.services = [
     }]
 ];
 
+delete config.desiredCapabilities;
+
 exports.config = config;
