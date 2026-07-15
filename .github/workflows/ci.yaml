@@ -11,8 +11,16 @@ jobs:
           with:
             node-version: 18
             cache: 'npm'
-        - name: Install
-          run: npm ci
+            
+        # Force clean the cache and bypass interactive hooks
+        - name: Install Dependencies
+          timeout-minutes: 10
+          env:
+            PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
+            PUPPETEER_SKIP_DOWNLOAD: 'true'
+          run: |
+            npm cache clean --force
+            npm ci --no-audit --prefer-offline
 
         # New Step: Upload APK before running test
         - name: Upload App to BrowserStack
