@@ -1,50 +1,35 @@
 require('dotenv').config();
-const { config } = require('./wdio.shared.conf')
+const { config: sharedConfig } = require('./wdio.shared.conf');
 
+const browserstackConfig = Object.assign({}, sharedConfig, {
+    // Overwrite credentials cleanly
+    user: process.env.BROWSERSTACK_USER,
+    key: process.env.BROWSERSTACK_KEY,
 
-// ==================
-// BrowserStack Credentials
-// ==================
-config.user = process.env.BROWSERSTACK_USER;
-config.key = process.env.BROWSERSTACK_KEY;
+    // Define explicit W3C capabilities
+    capabilities: [{
+        platformName: 'Android',
+        'appium:automationName': 'UiAutomator2',
+        'appium:autoGrantPermissions': true,
+        'appium:app': 'ColorNoteApp',
+        
+        'bstack:options': {
+            deviceName: 'Google Pixel 5',
+            osVersion: '11.0', 
+            realMobile: 'true'   
+        }
+    }],
 
-// ==================
-// Specify Test Files
-// ==================
-config.specs = [
-    './test/specs/add-note.spec.js'
-],
+    // Explicitly overwrite the services array to completely drop local Appium
+    services: [
+        ['browserstack', {
+            browserstackLocal: false
+        }]
+    ]
+});
 
-// ============
-// Capabilities
-// ============
-config.capabilities = [{
-    // capabilities for Browser web tests on an Android Emulator
-    'platformName': 'Android',
-    'appium:automationName': 'UiAutomator2',
-    'appium:autoGrantPermissions': true,
-    'appium:app': 'ColorNoteApp',
-    
-    'bstack:options':{
-     'deviceName': 'Google Pixel 5',
-     'osVersion': '11.0', 
-     'realMobile': 'true'   
-    },   
+// Explicitly scrub out legacy parameters that break the W3C parsing validation
+delete browserstackConfig.desiredCapabilities;
+delete browserstackConfig.capabilities.desiredCapabilities;
 
-}
-
-],
-
-// Test runner services
-// Services take over a specific job you don't want to take care of. They enhance
-// your test setup with almost no effort. Unlike plugins, they don't add new
-// commands. Instead, they hook themselves up into the test process.
-config.services = [
-    ['browserstack', {
-        browserstackLocal: false
-    }]
-];
-
-delete config.desiredCapabilities;
-
-exports.config = config;
+exports.config = browserstackConfig;
