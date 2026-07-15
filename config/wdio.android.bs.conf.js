@@ -22,7 +22,7 @@ config.capabilities = [{
     // capabilities for Browser web tests on an Android Emulator
     'platformName': 'Android',
     'automationName': 'UiAutomator2',
-    'autoGrantPermissions': true
+    'autoGrantPermissions': true,
     'bstack:options':{
      'deviceName': 'Google Pixel 5',
      'osVersion': '11.0', 
