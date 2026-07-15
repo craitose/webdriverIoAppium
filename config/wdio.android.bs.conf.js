@@ -1,32 +1,35 @@
 require('dotenv').config();
-const { config } = require('./wdio.shared.conf');
+const { config: sharedConfig } = require('./wdio.shared.conf');
 
-// ==================
-// BrowserStack Credentials
-// ==================
-config.user = process.env.BROWSERSTACK_USER;
-config.key = process.env.BROWSERSTACK_KEY;
+const browserstackConfig = Object.assign({}, sharedConfig, {
+   
+    user: process.env.BROWSERSTACK_USER,
+    key: process.env.BROWSERSTACK_KEY,
 
-// ==================
-// Specify Test Files
-// ==================
-config.specs = [
-    './test/specs/add-note.spec.js'
-];
-
-// ============
-// Capabilities - Restored to your original flat format
-// ============
-config.capabilities = [{
-    alwaysMatch: {
+    // Define explicit W3C capabilities
+    capabilities: [{
         platformName: 'Android',
-        deviceName: 'Google Pixel 6',     // Updated target
-        platformVersion: '12.0',          // Updated target
-        automationName: 'UiAutomator2',
-        app: 'ColorNoteApp',
-        autoGrantPermissions: true,
-        'browserstack.wdioService': '8.14.3'
-    }
-}];
+        'appium:automationName': 'UiAutomator2',
+        'appium:autoGrantPermissions': true,
+        'appium:app': 'ColorNoteApp',
+        
+        'bstack:options': {
+            deviceName: 'Google Pixel 6',
+            osVersion: '12.0', 
+            realMobile: 'true'   
+        }
+    }],
 
-exports.config = config;
+    // Explicitly overwrite the services array to completely drop local Appium
+    services: [
+        ['browserstack', {
+            browserstackLocal: false
+        }]
+    ]
+});
+
+// Explicitly scrub out legacy parameters that break the W3C parsing validation
+delete browserstackConfig.desiredCapabilities;
+delete browserstackConfig.capabilities.desiredCapabilities;
+
+exports.config = browserstackConfig;
