@@ -21,11 +21,14 @@ config.specs = [
 config.capabilities = [{
     // capabilities for Browser web tests on an Android Emulator
     'platformName': 'Android',
-    'deviceName': 'Google Pixel 5',
-    'osVersion': '11.0',
     'automationName': 'UiAutomator2',
-    'app': 'ColorNoteApp',
     'autoGrantPermissions': true
+    'bstack:options':{
+     'deviceName': 'Google Pixel 5',
+     'osVersion': '11.0', 
+     'app': 'ColorNoteApp',   
+    },   
+
 }
 
 ],
