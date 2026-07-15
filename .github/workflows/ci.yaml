@@ -14,7 +14,7 @@ jobs:
         - name: Install
           run: npm ci
 
-        # New Step: Upload APK before running tests
+        # New Step: Upload APK before running test
         - name: Upload App to BrowserStack
           run: |
             curl -u "${{ secrets.BROWSERSTACK_USER }}:${{ secrets.BROWSERSTACK_KEY }}" \
