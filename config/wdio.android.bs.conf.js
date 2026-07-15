@@ -14,8 +14,8 @@ const browserstackConfig = Object.assign({}, sharedConfig, {
         'appium:app': 'ColorNoteApp',
         
         'bstack:options': {
-            deviceName: 'Google Pixel 5',
-            osVersion: '11.0', 
+            deviceName: 'Google Pixel 6',
+            osVersion: '12.0', 
             realMobile: 'true'   
         }
     }],
